@@ -58,7 +58,7 @@ config = ThrottlingConfig(
     target_bandwidth_mbps=2.0,
     lag_delay_ms=10,
     packet_drop_rate=0.0,
-    process_name_substring="RobloxPlayer",
+    process_name_substring="your_process",
     toggle_key="f1",
     exit_key="esc",
 )
