@@ -24,7 +24,7 @@ class ThrottlingConfig:
     packet_drop_rate: float = 0.0
 
     # Process targeting
-    process_name_substring: str = "RobloxPlayer"
+    process_name_substring: str = "Your-process-here"
 
     # Control settings
     toggle_key: str = "f1"
