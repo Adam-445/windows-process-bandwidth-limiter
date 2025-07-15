@@ -192,32 +192,23 @@ class NetworkThrottler:
     def _packet_capture_context(self):
         """Context manager for packet capture operations."""
         try:
-            # Fixed WinDivert filter syntax - use correct field names
-            if self._target_ports:
-                port_conditions = " or ".join([
-                    f"tcp.SrcPort == {port} or tcp.DstPort == {port} or "
-                    f"udp.SrcPort == {port} or udp.DstPort == {port}"
-                    for port in self._target_ports
-                ])
+            MAX_LISTED_PORTS = 20
+            start, end = self.config.port_range_start, self.config.port_range_end
+
+            if self._target_ports and len(self._target_ports) <= MAX_LISTED_PORTS:
+                port_conditions = " or ".join(
+                    f"tcp.SrcPort == {p} or tcp.DstPort == {p} or udp.SrcPort == {p} or udp.DstPort == {p}"
+                    for p in self._target_ports
+                )
                 filter_str = f"(tcp or udp) and ({port_conditions})"
+
             else:
-                # Default filter for port range - use correct field names
+                # Too many (or zero) specific ports: just do the full range
                 filter_str = (
                     "(tcp or udp) and "
-                    "((tcp.DstPort >= 49000 and tcp.DstPort <= 65000) or "
-                    "(udp.DstPort >= 49000 and udp.DstPort <= 65000))"
+                    f"((tcp.DstPort >= {start} and tcp.DstPort <= {end}) or "
+                    f"(udp.DstPort >= {start} and udp.DstPort <= {end}))"
                 )
-
-            # Debug information
-            logger.debug(f"Filter string: {filter_str}")
-            logger.debug(f"Target ports: {self._target_ports}")
-            logger.debug(f"Port range: {self.config.port_range_start}-{self.config.port_range_end}")
-
-            # Print debugging info like in your error output
-            print(f"\nDetailed filter debugging information:")
-            print(f"Filter string: {filter_str}")
-            print(f"Target ports: {self._target_ports}")
-            print(f"Port range: {self.config.port_range_start}-{self.config.port_range_end}")
 
             with pydivert.WinDivert(filter_str) as windivert_handle:
                 logger.info("Packet capture started successfully")
@@ -226,12 +217,10 @@ class NetworkThrottler:
         except Exception as e:
             logger.error(f"Packet capture error: {e}")
             
-            # Try a simpler filter if the complex one fails
             if self._target_ports and "parameter is incorrect" in str(e):
                 logger.info("Complex filter failed, trying simpler approach...")
                 try:
-                    # Try with just the first few ports to see if it's a length issue
-                    limited_ports = list(self._target_ports)[:5]  # Limit to first 5 ports
+                    limited_ports = list(self._target_ports)[:5]
                     port_conditions = " or ".join([
                         f"tcp.SrcPort == {port} or tcp.DstPort == {port} or "
                         f"udp.SrcPort == {port} or udp.DstPort == {port}"
