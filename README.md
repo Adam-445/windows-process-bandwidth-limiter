@@ -1,4 +1,4 @@
-# Windows Network Throttler
+# Process Bandwidth Throttler
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-green.svg) ![Version: 2.0.0](https://img.shields.io/badge/version-2.0.0-blue.svg) ![Python: 3.7+](https://img.shields.io/badge/python-3.7%2B-yellow.svg) ![Project Status](https://img.shields.io/badge/status-archived-lightgrey)
 
