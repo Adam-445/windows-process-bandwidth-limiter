@@ -110,9 +110,10 @@ Upon launch, the application will:
 
 1. Ensure you run as **Administrator**.
 2. Verify `WinDivert.dll` is in the project directory and matches your Python architecture (x86/x64).
-3. Disable or configure antivirus/Windows Defender if packet capture fails.
-4. Reduce the number of target ports in config if complex filters error.
-5. Check dependencies are installed: `psutil`, `pydivert`, `keyboard`.
+  > Preferably download the latest verion [here](https://github.com/basil00/WinDivert/releases) and replace WinDivert.dll at the root of the project
+4. Disable or configure antivirus/Windows Defender if packet capture fails.
+5. Reduce the number of target ports in config if complex filters error.
+6. Check dependencies are installed: `psutil`, `pydivert`, `keyboard`.
 
 ## License
 
