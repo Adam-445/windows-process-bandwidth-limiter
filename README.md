@@ -44,7 +44,7 @@ cd windows-network-throttler
 pip install -r requirements.txt
 ```
 
-## ⚙Configuration
+## Configuration
 
 Configure via the default Python settings or a `config.json` file in the project root.
 
@@ -101,7 +101,7 @@ Upon launch, the application will:
 | F1  | Toggle throttling ON/OFF |
 | ESC | Exit the application     |
 
-## 📝 Logging & Output
+## Logging & Output
 
 * **Console**: real-time status updates (processed, throttled, dropped, rate)
 * **Log file**: if `log_file` is set in config, detailed logs will be written
@@ -117,7 +117,3 @@ Upon launch, the application will:
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-*Developed by Adam-445*
