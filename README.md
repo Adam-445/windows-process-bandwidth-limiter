@@ -39,8 +39,8 @@
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/Adam-445/windows-network-throttler.git
-cd windows-network-throttler
+git clone https://github.com/Adam-445/windows-process-bandwidth-limiter.git
+cd windows-process-bandwidth-limiter
 pip install -r requirements.txt
 ```
 
